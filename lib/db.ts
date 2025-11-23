@@ -2,7 +2,10 @@ import Database from "better-sqlite3";
 import fs from "fs";
 import path from "path";
 
-const dbPath = path.join(process.cwd(), "data", "app.db");
+// Use a writable location for serverless (e.g., Vercel) where the repo dir is read-only.
+// Allow override via env for local dev or future persistence options.
+const dbPath =
+  process.env.DB_PATH || path.join("/tmp", "mcp-test-app", "app.db");
 
 function ensureDatabase() {
   const dir = path.dirname(dbPath);
